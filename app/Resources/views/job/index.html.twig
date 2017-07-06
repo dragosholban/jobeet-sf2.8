@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Jobs list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Company</th>
+                <th>Logo</th>
+                <th>Url</th>
+                <th>Position</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Howtoapply</th>
+                <th>Token</th>
+                <th>Ispublic</th>
+                <th>Isactivated</th>
+                <th>Email</th>
+                <th>Expiresat</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for job in jobs %}
+            <tr>
+                <td><a href="{{ path('job_show', { 'id': job.id }) }}">{{ job.id }}</a></td>
+                <td>{{ job.type }}</td>
+                <td>{{ job.company }}</td>
+                <td>{{ job.logo }}</td>
+                <td>{{ job.url }}</td>
+                <td>{{ job.position }}</td>
+                <td>{{ job.location }}</td>
+                <td>{{ job.description }}</td>
+                <td>{{ job.howToApply }}</td>
+                <td>{{ job.token }}</td>
+                <td>{% if job.isPublic %}Yes{% else %}No{% endif %}</td>
+                <td>{% if job.isActivated %}Yes{% else %}No{% endif %}</td>
+                <td>{{ job.email }}</td>
+                <td>{% if job.expiresAt %}{{ job.expiresAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if job.createdAt %}{{ job.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if job.updatedAt %}{{ job.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('job_show', { 'id': job.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('job_edit', { 'id': job.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('job_new') }}">Create a new job</a>
+        </li>
+    </ul>
+{% endblock %}
