@@ -9,8 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 
 /**
  * Job controller.
- *
- * @Route("job")
  */
 class JobController extends Controller
 {
@@ -34,7 +32,7 @@ class JobController extends Controller
     /**
      * Creates a new job entity.
      *
-     * @Route("/new", name="job_new")
+     * @Route("/job/new", name="job_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -60,7 +58,7 @@ class JobController extends Controller
     /**
      * Finds and displays a job entity.
      *
-     * @Route("/{id}", name="job_show")
+     * @Route("/job/{company}/{location}/{id}/{position}", name="job_show", requirements={"id" = "\d+"})
      * @Method("GET")
      */
     public function showAction(Job $job)
@@ -76,7 +74,7 @@ class JobController extends Controller
     /**
      * Displays a form to edit an existing job entity.
      *
-     * @Route("/{id}/edit", name="job_edit")
+     * @Route("/job/{id}/edit", name="job_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Job $job)
@@ -101,7 +99,7 @@ class JobController extends Controller
     /**
      * Deletes a job entity.
      *
-     * @Route("/{id}", name="job_delete")
+     * @Route("/job/{id}", name="job_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Job $job)

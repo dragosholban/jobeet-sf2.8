@@ -12,7 +12,7 @@
                 <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
                     <td class="location">{{ job.location }}</td>
                     <td class="position">
-                        <a href="{{ path('job_show', { 'id': job.id }) }}">
+                        <a href="{{ path('job_show', { 'id': job.id, 'company': job.companySlug, 'location': job.locationSlug, 'position': job.positionSlug }) }}">
                             {{ job.position }}
                         </a>
                     </td>
