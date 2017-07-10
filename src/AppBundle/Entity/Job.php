@@ -10,6 +10,7 @@ use AppBundle\Utils\Jobeet as Jobeet;
  * @ORM\Entity()
  * @ORM\Table(name="job")
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\JobRepository")
  */
 class Job
 {
@@ -526,5 +527,16 @@ class Job
     public function getLocationSlug()
     {
         return Jobeet::slugify($this->getLocation());
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setExpiresAtValue()
+    {
+        if (!$this->getExpiresAt()) {
+            $now = $this->getCreatedAt() ? $this->getCreatedAt()->format('U') : time();
+            $this->expiresAt = new \DateTime(date('Y-m-d H:i:s', $now + 86400 * 30));
+        }
     }
 }
