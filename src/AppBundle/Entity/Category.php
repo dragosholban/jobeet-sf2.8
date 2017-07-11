@@ -3,10 +3,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Utils\Jobeet;
 /**
- * @ORM\Entity()
- * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CategoryRepository")
+ * @ORM\Table(name="category")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
@@ -34,6 +35,13 @@ class Category
     private $affiliates;
     
     private $activeJobs;
+    
+    private $moreJobs;
+    
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $slug;
     
     /**
      * Constructor
@@ -156,5 +164,41 @@ class Category
     public function getActiveJobs()
     {
         return $this->activeJobs;
+    }
+    
+    public function getSlug()
+    {
+        return Jobeet::slugify($this->getName());
+    }
+    
+    public function setMoreJobs($jobs)
+    {
+        $this->moreJobs = $jobs >=  0 ? $jobs : 0;
+    }
+
+    public function getMoreJobs()
+    {
+        return $this->moreJobs;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setSlugValue()
+    {
+        $this->slug = Jobeet::slugify($this->getName());
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
