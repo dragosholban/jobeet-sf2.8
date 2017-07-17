@@ -10,6 +10,9 @@
 {% endblock %}
  
 {% block body %}
+    {% if app.request.get('token') %}
+        {% include 'job/admin.html.twig' with {'job': job} %}
+    {% endif %}
     <div id="job">
       <h1>{{ job.company }}</h1>
       <h2>{{ job.location }}</h2>
@@ -37,12 +40,6 @@
  
       <div class="meta">
         <small>posted on {{ job.createdat|date('m/d/Y') }}</small>
-      </div>
- 
-      <div style="padding: 20px 0">
-        <a href="{{ path('job_edit', { 'id': job.id }) }}">
-          Edit
-        </a>
       </div>
     </div>
 {% endblock %}

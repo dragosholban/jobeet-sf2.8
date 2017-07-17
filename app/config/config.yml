@@ -9,6 +9,7 @@ parameters:
     locale: en
     max_jobs_on_homepage: 10
     max_jobs_on_category: 20
+    jobs_directory: '%kernel.root_dir%/../web/uploads/jobs'
 
 framework:
     #esi: ~

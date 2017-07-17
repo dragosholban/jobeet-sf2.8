@@ -1,16 +1,117 @@
 {% extends 'base.html.twig' %}
-
+ 
+{% form_theme form _self %}
+ 
+{% block field_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+        <ul class="error_list">
+            {% for error in errors %}
+                <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endspaceless %}
+{% endblock field_errors %}
+ 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/ensjobeet/css/job.css') }}" type="text/css" media="all" />
+{% endblock %}
+ 
 {% block body %}
     <h1>Job creation</h1>
+    <form action="{{ path('job_new') }}" method="post" {{ form_enctype(form) }}>
+        <table id="job_form">
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Preview your job" />
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <th>{{ form_label(form.category) }}</th>
+                    <td>
+                        {{ form_errors(form.category) }}
+                        {{ form_widget(form.category) }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form_label(form.type) }}</th>
+                    <td>
+                        {{ form_errors(form.type) }}
+                        {{ form_widget(form.type) }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form_label(form.company) }}</th>
+                    <td>
+                        {{ form_errors(form.company) }}
+                        {{ form_widget(form.company) }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form_label(form.logo) }}</th>
+                    <td>
+                        {{ form_errors(form.logo) }}
+                        {{ form_widget(form.logo) }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form_label(form.url) }}</th>
+                    <td>
+                        {{ form_errors(form.url) }}
+                        {{ form_widget(form.url) }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form_label(form.position) }}</th>
+                    <td>
+                        {{ form_errors(form.position) }}
+                        {{ form_widget(form.position) }}
+                    </td>
+                </tr>
+                <tr>
+                  <th>{{ form_label(form.location) }}</th>
+                  <td>
+                        {{ form_errors(form.location) }}
+                        {{ form_widget(form.location) }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>{{ form_label(form.description) }}</th>
+                  <td>
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                  </td>
+                </tr>
+                <tr>
+                    <th>{{ form_label(form.howToApply) }}</th>
+                    <td>
+                        {{ form_errors(form.howToApply) }}
+                        {{ form_widget(form.howToApply) }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form_label(form.isPublic) }}</th>
+                    <td>
+                        {{ form_errors(form.isPublic) }}
+                        {{ form_widget(form.isPublic) }}
+                        <br /> Whether the job can also be published on affiliate websites or not.
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ form_label(form.email) }}</th>
+                    <td>
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email) }}
+                      </td>
+                </tr>
+            </tbody>
+        </table>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('job_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        {{ form_rest(form) }}
+    </form>
 {% endblock %}
