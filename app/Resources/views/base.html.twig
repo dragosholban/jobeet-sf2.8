@@ -46,15 +46,19 @@
  
       <div id="content">
         {% if app.session.flashbag.has('notice') %}
-          <div class="flash_notice">
-            {{ app.session.flashbag.get('notice') }}
-          </div>
+          {% for message in app.session.flashBag.get('notice') %}
+            <div class="flash_notice">
+              {{ message }}
+            </div>
+          {% endfor %}
         {% endif %}
  
         {% if app.session.flashbag.has('error') %}
-          <div class="flash_error">
-            {{ app.session.flashbag.get('error') }}
-          </div>
+          {% for message in app.session.flashBag.get('error') %}
+            <div class="flash_error">
+              {{ message }}
+            </div>
+          {% endfor %}
         {% endif %}
  
         <div class="content">
