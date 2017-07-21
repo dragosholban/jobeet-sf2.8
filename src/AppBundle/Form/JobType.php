@@ -42,7 +42,7 @@ class JobType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_job';
+        return 'job';
     }
 
 

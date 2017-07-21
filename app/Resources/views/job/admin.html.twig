@@ -4,14 +4,14 @@
         {% if not job.isActivated %}
             <li><a href="{{ path('job_edit', { 'token': job.token }) }}">Edit</a></li>
             <li>
-                <form action="{{ path('job_publish', { 'token': job.token }) }}" method="post">
+                {{ form_start(publish_form, {'action': path('job_publish', { 'token': job.token }), 'method': 'POST'}) }}
                     {{ form_widget(publish_form) }}
                     <button type="submit">Publish</button>
                 </form>
             </li>
         {% endif %}
         <li>
-            <form action="{{ path('job_delete', { 'token': job.token }) }}" method="post">
+            {{ form_start(delete_form, {'action': path('job_delete', { 'token': job.token }), 'method': 'DELETE'}) }}
                 {{ form_widget(delete_form) }}
                 <button type="submit" onclick="if (!confirm('Are you sure?')) {
                     return false;
@@ -27,7 +27,10 @@
                 {% endif %}
 
                 {% if job.expiresSoon %}
-                    - <a href="">Extend</a> for another 30 days
+                    {{ form_start(extend_form, {'action': path('job_extend', { 'token': job.token }), 'method': 'POST'}) }}
+                        {{ form_widget(extend_form) }}
+                        <button type="submit">Extend</button> for another 30 days
+                    </form>
                 {% endif %}
             </li>
         {% else %}

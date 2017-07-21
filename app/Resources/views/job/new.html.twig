@@ -2,7 +2,7 @@
  
 {% form_theme form _self %}
  
-{% block field_errors %}
+{% block form_errors %}
 {% spaceless %}
     {% if errors|length > 0 %}
         <ul class="error_list">
@@ -12,7 +12,7 @@
         </ul>
     {% endif %}
 {% endspaceless %}
-{% endblock field_errors %}
+{% endblock form_errors %}
  
 {% block stylesheets %}
     {{ parent() }}
