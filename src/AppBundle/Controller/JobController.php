@@ -118,14 +118,6 @@ class JobController extends Controller
             throw $this->createNotFoundException('Job is activated and cannot be edited.');
         }
   
-        if ($request->getMethod() != Request::METHOD_POST) {
-            if(is_file($this->getParameter('jobs_directory').'/'.$job->getLogo())) {
-                $job->setLogo(
-                    new File($this->getParameter('jobs_directory').'/'.$job->getLogo())
-                );
-            }
-        }
-        
         $deleteForm = $this->createDeleteForm($job);
         $editForm = $this->createForm('AppBundle\Form\JobType', $job);
         $editForm->handleRequest($request);

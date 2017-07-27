@@ -84,7 +84,7 @@ class JobControllerTest extends WebTestCase
         $form = $crawler->selectButton('Preview your job')->form(array(
             'job[company]'      => 'Sensio Labs',
             'job[url]'          => 'http://www.sensio.com/',
-            'job[logo]'         => __DIR__.'/../../../../../web/bundles/app/images/sensio-labs.gif',
+            'job[file]'         => __DIR__.'/../../../../../web/bundles/app/images/sensio-labs.gif',
             'job[position]'     => 'Developer',
             'job[location]'     => 'Atlanta, USA',
             'job[description]'  => 'You will work with symfony to develop websites for our customers.',

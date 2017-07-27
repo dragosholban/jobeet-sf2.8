@@ -37,14 +37,12 @@ class JobUploadListener
             return;
         }
 
-        $file = $entity->getLogo();
+        $file = $entity->getFile();
 
-        // only upload new files
-        if (!$file instanceof UploadedFile) {
-            return;
+        if ($file instanceof UploadedFile) {
+            $fileName = $this->uploader->upload($file);
+            $entity->setFile(null);
+            $entity->setLogo($fileName);
         }
-
-        $fileName = $this->uploader->upload($file);
-        $entity->setLogo($fileName);
     }
 }

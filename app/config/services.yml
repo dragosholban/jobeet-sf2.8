@@ -16,3 +16,15 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+    app.admin.category:
+        class: AppBundle\Admin\CategoryAdmin
+        arguments: [~, AppBundle\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Jobeet, label: Categories }
+ 
+    app.admin.job:
+        class: AppBundle\Admin\JobAdmin
+        arguments: [~, AppBundle\Entity\Job, AppBundle:JobAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Jobeet, label: Jobs }
+        
