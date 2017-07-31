@@ -1,3 +1,10 @@
+login:
+    pattern:   /login
+    defaults:  { _controller: AppBundle:Security:login }
+login_check:
+    pattern:   /login_check
+logout:
+    path: /logout
 admin_area:
     resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
     prefix: /admin

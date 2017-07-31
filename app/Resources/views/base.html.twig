@@ -44,6 +44,17 @@
         </div>
       </div>
  
+    <div id="job_history">
+        Recent viewed jobs:
+        <ul>
+            {% for job in app.session.get('job_history') %}
+                <li>
+                    <a href="{{ path('job_show', { 'id': job.id, 'company': job.companySlug, 'location': job.locationSlug, 'position': job.positionSlug }) }}">{{ job.position }} - {{ job.company }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+              
       <div id="content">
         {% if app.session.flashbag.has('notice') %}
           {% for message in app.session.flashBag.get('notice') %}

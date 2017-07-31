@@ -77,6 +77,28 @@ class JobController extends Controller
      */
     public function showAction(Job $job)
     {
+        $session = $this->getRequest()->getSession();
+
+        // fetch jobs already stored in the job history
+        $jobsArray = $session->get('job_history', array());
+
+        // store the job as an array so we can put it in the session and avoid entity serialize errors
+        $jobArray = array(
+            'id' => $job->getId(),
+            'position' => $job->getPosition(),
+            'company' => $job->getCompany(),
+            'companySlug' => $job->getCompanySlug(),
+            'locationSlug' => $job->getLocationSlug(),
+            'positionSlug' => $job->getPositionSlug());
+
+        if (!in_array($jobArray, $jobsArray)) {
+            // add the current job at the beginning of the array
+            array_unshift($jobsArray, $jobArray);
+
+            // store the new job history back into the session
+            $session->set('job_history', array_slice($jobsArray, 0, 3));
+        }
+    
         $deleteForm = $this->createDeleteForm($job);
 
         return $this->render('job/show.html.twig', array(
