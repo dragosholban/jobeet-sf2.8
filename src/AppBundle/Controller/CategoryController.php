@@ -35,13 +35,16 @@ class CategoryController extends Controller
 
         $category->setActiveJobs($em->getRepository('AppBundle:Job')->getActiveJobs($category->getId(), $jobs_per_page, ($page - 1) * $jobs_per_page));
 
-        return $this->render('category/show.html.twig', array(
+        $format = $this->getRequest()->getRequestFormat();
+        
+        return $this->render('category/show.'.$format.'.twig', array(
             'category' => $category,
             'last_page' => $last_page,
             'previous_page' => $previous_page,
             'current_page' => $page,
             'next_page' => $next_page,
-            'total_jobs' => $total_jobs
+            'total_jobs' => $total_jobs,
+            'feedId' => sha1($this->get('router')->generate('category_show', array('slug' =>  $category->getSlug(), '_format' => 'atom'), true)),
         ));
     }
 }
