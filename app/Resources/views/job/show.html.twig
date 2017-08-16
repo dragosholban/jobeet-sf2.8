@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+ 
+{% block title %}
+    {{ job.company }} is looking for a {{ job.position }}
+{% endblock %}
+ 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/job.css') }}" type="text/css" media="all" />
+{% endblock %}
+ 
+{% block body %}
+    <div id="job">
+      <h1>{{ job.company }}</h1>
+      <h2>{{ job.location }}</h2>
+      <h3>
+        {{ job.position }}
+        <small> - {{ job.type }}</small>
+      </h3>
+ 
+      {% if job.logo %}
+        <div class="logo">
+          <a href="{{ job.url }}">
+            <img src="/uploads/jobs/{{ job.logo }}"
+              alt="{{ job.company }} logo" />
+          </a>
+        </div>
+      {% endif %}
+ 
+      <div class="description">
+        {{ job.description|nl2br }}
+      </div>
+ 
+      <h4>How to apply?</h4>
+ 
+      <p class="how_to_apply">{{ job.howtoapply }}</p>
+ 
+      <div class="meta">
+        <small>posted on {{ job.createdat|date('m/d/Y') }}</small>
+      </div>
+ 
+      <div style="padding: 20px 0">
+        <a href="{{ path('job_edit', { 'id': job.id }) }}">
+          Edit
+        </a>
+      </div>
+    </div>
+{% endblock %}

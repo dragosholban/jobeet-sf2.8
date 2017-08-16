@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+ 
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/jobs.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block body %}
+    <div id="jobs">
+        <table class="jobs">
+            {% for job in jobs %}
+                <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
+                    <td class="location">{{ job.location }}</td>
+                    <td class="position">
+                        <a href="{{ path('job_show', { 'id': job.id }) }}">
+                            {{ job.position }}
+                        </a>
+                    </td>
+                    <td class="company">{{ job.company }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

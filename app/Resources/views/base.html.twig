@@ -1,13 +1,88 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+  <head>
+    <title>
+      {% block title %}
+        Jobeet - Your best job board
+      {% endblock %}
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% block stylesheets %}
+      <link rel="stylesheet" href="{{ asset('css/main.css') }}" type="text/css" media="all" />
+    {% endblock %}
+    {% block javascripts %}
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <div class="content">
+          <h1><a href="{{ path('job_index') }}">
+            <img src="{{ asset('images/logo.jpg') }}" alt="Jobeet Job Board" />
+          </a></h1>
+ 
+          <div id="sub_header">
+            <div class="post">
+              <h2>Ask for people</h2>
+              <div>
+                <a href="{{ path('job_index') }}">Post a Job</a>
+              </div>
+            </div>
+ 
+            <div class="search">
+              <h2>Ask for a job</h2>
+              <form action="" method="get">
+                <input type="text" name="keywords" id="search_keywords" />
+                <input type="submit" value="search" />
+                <div class="help">
+                  Enter some keywords (city, country, position, ...)
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div id="content">
+        {% if app.session.flashbag.has('notice') %}
+          {% for message in app.session.flashBag.get('notice') %}
+            <div class="flash_notice">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+ 
+        {% if app.session.flashbag.has('error') %}
+          {% for message in app.session.flashBag.get('error') %}
+            <div class="flash_error">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+ 
+        <div class="content">
+            {% block body %}
+            {% endblock %}
+        </div>
+      </div>
+ 
+      <div id="footer">
+        <div class="content">
+          <span class="symfony">
+            <img src="{{ asset('images/jobeet-mini.png') }}" />
+            powered by <a href="http://www.symfony.com/">
+              <img src="{{ asset('images/symfony.gif') }}" alt="symfony framework" />
+            </a>
+          </span>
+          <ul>
+            <li><a href="">About Jobeet</a></li>
+            <li class="feed"><a href="">Full feed</a></li>
+            <li><a href="">Jobeet API</a></li>
+            <li class="last"><a href="">Affiliates</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
