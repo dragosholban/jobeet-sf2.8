@@ -27,4 +27,10 @@ services:
         arguments: [~, AppBundle\Entity\Job, AppBundle:JobAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Jobeet, label: Jobs }
+
+    app.admin.affiliate:
+        class: AppBundle\Admin\AffiliateAdmin
+        arguments: [~, AppBundle\Entity\Affiliate, AppBundle:AffiliateAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Jobeet, label: Affiliates }
         

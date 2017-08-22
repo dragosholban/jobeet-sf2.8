@@ -1,3 +1,12 @@
+app_affiliate:
+    resource: "@AppBundle/Controller/AffiliateController.php"
+    type:     annotation
+
+api:
+    resource: "@ApiBundle/Controller/"
+    type:     rest
+    prefix:   /api
+
 login:
     pattern:   /login
     defaults:  { _controller: AppBundle:Security:login }

@@ -111,4 +111,22 @@ class JobRepository extends EntityRepository
 
         return $job;
     }
+    
+    public function getActiveJobsForAffiliate($affiliate)
+    {
+        $qb = $this->createQueryBuilder('j')
+            ->leftJoin('j.category', 'c')
+            ->leftJoin('c.affiliates', 'a')
+            ->where('a.id = :affiliate')
+            ->setParameter('affiliate', $affiliate)
+            ->andwhere('j.expiresAt > :date')
+            ->setParameter('date', date('Y-m-d H:i:s', time()))
+            ->andWhere('j.isActivated = :activated')
+            ->setParameter('activated', 1)
+            ->orderBy('j.expiresAt', 'DESC');
+        
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }
