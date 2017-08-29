@@ -20,9 +20,11 @@
         "php": ">=5.3.9",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/orm": "^2.4.8",
+        "friendsofsymfony/elastica-bundle": "^4.0",
         "friendsofsymfony/rest-bundle": "^2.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "jms/serializer-bundle": "^2.0",
+        "knplabs/knp-paginator-bundle": "^2.6",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "sonata-project/admin-bundle": "^3.20",
@@ -30,7 +32,8 @@
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/swiftmailer-bundle": "~2.3,>=2.3.10",
         "symfony/symfony": "2.8.*",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "^1.0||^2.0",
+        "white-october/pagerfanta-bundle": "^1.0"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3",

@@ -234,4 +234,31 @@ class JobControllerTest extends WebTestCase
         // Check the expiration date
         $this->assertTrue($job->getExpiresAt()->format('y/m/d') == date('y/m/d', time() + 86400 * 30));
     }
+    
+    public function testSearch() 
+    {
+        // Non activated jobs are not returned by the search
+        $client = $this->createJob(array('job[position]' => 'foobar1'), false);
+        $crawler = $client->request('GET', '/search?query=foobar1');
+        $this->assertEquals('AppBundle\Controller\JobController::searchAction', $client->getRequest()->attributes->get('_controller'));
+        $this->assertTrue($crawler->filter('.jobs td.position:contains("foobar1")')->count() == 0);
+        
+        // Activated jobs are returned by the search
+        $client = $this->createJob(array('job[position]' => 'foobar2'), true);
+        $crawler = $client->request('GET', '/search?query=foobar2');
+        $this->assertTrue($crawler->filter('.jobs td.position:contains("foobar2")')->count() == 1);
+        
+        // Deleted jobs are not returned by the search
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $query = $em->createQuery('SELECT j from AppBundle:Job j WHERE j.position = :position');
+        $query->setParameter('position', 'foobar2');
+        $query->setMaxResults(1);
+        $job = $query->getSingleResult();
+        $em->remove($job);
+        $em->flush();
+        $crawler = $client->request('GET', '/search?query=foobar2');
+        $this->assertTrue($crawler->filter('.jobs td.position:contains("foobar2")')->count() == 0);        
+    }
 }

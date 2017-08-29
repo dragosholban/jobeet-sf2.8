@@ -78,3 +78,25 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            types:
+                job:
+                    properties:
+                        position: ~
+                        company: ~
+                        location: ~
+                        description: ~
+                        isActivated:
+                            type: boolean
+                        expiresAt:
+                            type: date
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Job
+                        provider: ~
+                        finder: ~                        
